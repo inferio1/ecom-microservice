@@ -75,4 +75,7 @@ public class ProductService {
        return productRepository.searchProducts(keyword).stream().map(this::mapToProductResponse).collect(Collectors.toList());
     }
 
+    public Optional<ProductResponse> getProductById(String id) {
+        return productRepository.findByIdAndActiveTrue(Long.valueOf(id)).map(this::mapToProductResponse);
+    }
 }

@@ -1,0 +1,28 @@
+spring:
+  application:
+    name: configserver
+
+  profiles:
+    active: native
+
+  cloud:
+    config:
+      server:
+        native:
+          search-locations: file:///C:\Users\piyus\Desktop\spring projects\Ecommerce Project\ecom-microservices\configserver\configserver\src\main\resources\config
+
+  rabbitmq:
+    host: localhost
+    port: 5672
+    username: guest
+    password: guest
+
+server:
+  port: 8888
+
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"
