@@ -8,6 +8,7 @@
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
         <module name="eureka" />
+        <module name="gateway" />
         <module name="configserver" />
       </profile>
       <profile name="Annotation profile for order" enabled="true">
@@ -21,6 +22,15 @@
         <module name="product" />
         <module name="order" />
       </profile>
+      <profile name="Annotation profile for notification" enabled="true">
+        <sourceOutputDir name="target/generated-sources/annotations" />
+        <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
+        <outputRelativeToContentRoot value="true" />
+        <processorPath useClasspath="false">
+          <entry name="$MAVEN_REPOSITORY$/org/projectlombok/lombok/1.18.42/lombok-1.18.42.jar" />
+        </processorPath>
+        <module name="notification" />
+      </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
       <module name="eureka (1) (com.ecommerce)" target="21" />
@@ -31,6 +41,8 @@
       <module name="configserver" options="-parameters" />
       <module name="eureka" options="-parameters" />
       <module name="eureka (1) (com.ecommerce)" options="-parameters" />
+      <module name="gateway" options="-parameters" />
+      <module name="notification" options="-parameters" />
       <module name="order" options="-parameters" />
       <module name="product" options="-parameters" />
       <module name="user" options="-parameters" />

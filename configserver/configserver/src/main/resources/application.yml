@@ -12,14 +12,15 @@ spring:
           search-locations: file:///C:\Users\piyus\Desktop\spring projects\Ecommerce Project\ecom-microservices\configserver\configserver\src\main\resources\config
 
   rabbitmq:
-    host: localhost
-    port: 5672
-    username: guest
-    password: guest
+    host: ${RABBIT_HOST:localhost}
+    port: ${RABBIT_PORT:5672}
+    username: ${RABBIT_USER:guest}
+    password: ${RABBIT_PASSWORD:guest}
+    virtual-host: ${RABBIT_VHOST:/}
+    connection-timeout: 30000
 
 server:
   port: 8888
-
 
 management:
   endpoints:

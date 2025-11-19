@@ -1,0 +1,11 @@
+build:
+  id: 102
+  version: 1.0.2
+  name: "Native Default Build"
+  type: "Native Default Type"
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: refresh

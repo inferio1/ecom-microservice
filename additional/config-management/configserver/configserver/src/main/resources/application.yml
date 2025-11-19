@@ -1,0 +1,43 @@
+spring:
+  application:
+    name: configserver
+
+  profiles:
+    active: native
+
+  cloud:
+    config:
+      server:
+        native:
+          search-locations: file:///C:\Users\piyus\Desktop\spring projects\Ecommerce Project\config-management\configserver\configserver\src\main\resources\config
+
+  rabbitmq:
+    host: localhost
+    port: 5672
+    username: guest
+    password: guest
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"
+
+#  datasource:
+#    url: jdbc:mysql://localhost:3306/configdb
+#    username: root
+#    password: root
+#    driver-class-name: com.mysql.cj.jdbc.Driver
+#
+#  cloud:
+#    config:
+#      server:
+#        jdbc:
+#          sql: "SELECT PROP_KEY, PROP_VALUE FROM PROPERTIES WHERE APPLICATION=? AND PROFILE=? AND LABEL=?"
+#          default-label: main
+
+server:
+  port: 8888
+#
+#encrypt:
+#  key: "0E329232EA6D0D73"

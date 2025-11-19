@@ -9,27 +9,86 @@ spring:
     hibernate:
       ddl-auto: update
     database-platform: org.hibernate.dialect.PostgreSQLDialect
+
+  rabbitmq:
+    host: ${RABBIT_HOST:localhost}
+    port: ${RABBIT_PORT:5672}
+    username: ${RABBIT_USER:guest}
+    password: ${RABBIT_PASSWORD:guest}
+    virtual-host: ${RABBIT_VHOST:/}
+    connection-timeout: 30000
+
 app:
   message: "Hello Order Service"
 
-  rabbitmq:
-    host: localhost
-    port: 5672
-    username: guest
-    password: guest
 
 server:
   port: 8083
+
+
+
+rabbitmq:
+  exchange:
+    name: order.exchange
+  queue:
+    name: order.queue
+  routing:
+    key: order.tracking
+
+
 
 management:
   endpoints:
     web:
       exposure:
         include: "*"
+  endpoint:
+    health:
+      show-details: always
+  health:
+    circuitbreakers:
+      enabled: true
+  tracing:
+    sampling:
+      probability: 1.0
 
 eureka:
+  instance:
+    prefer-ip-address: true
+    hostname: localhost
   client:
     service-url:
       defaultZone: http://localhost:8761/eureka
     register-with-eureka: true
     fetch-registry: true
+
+logging:
+  file:
+    name: logs/${spring.application.name}.log
+
+#circuit breaker
+resilience4j:
+  circuitbreaker:
+    instances:
+      productService:
+        registerHealthIndicator: true
+        slidingWindowSize: 10
+        minimumNumberOfCalls: 5
+        permittedNumberOfCallsInHalfOpenState: 3
+        waitDurationInOpenState: 10s
+        failureRateThreshold: 50
+        automaticTransitionFromOpenToHalfOpenEnabled: true
+        slidingWindowType: count_based
+
+  rateLimiter:
+    instances:
+      rateBreaker:
+        timeout-duration: 0
+        limit-refresh-period: 4s
+        limit-for-period: 2
+
+  retry:
+    instances:
+      retryBreaker:
+        maxAttempts: 5
+        waitDuration: 500ms

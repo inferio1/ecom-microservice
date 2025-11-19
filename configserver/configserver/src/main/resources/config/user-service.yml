@@ -5,10 +5,12 @@ spring:
       database: userdb
 
   rabbitmq:
-    host: localhost
-    port: 5672
-    username: guest
-    password: guest
+    host: ${RABBIT_HOST:localhost}
+    port: ${RABBIT_PORT:5672}
+    username: ${RABBIT_USER:guest}
+    password: ${RABBIT_PASSWORD:guest}
+    virtual-host: ${RABBIT_VHOST:/}
+    connection-timeout: 30000
 
 server:
   port: 8082
@@ -18,10 +20,20 @@ management:
     web:
       exposure:
         include: "*"
+  tracing:
+    sampling:
+      probability: 1.0
 
 eureka:
+  instance:
+    prefer-ip-address: true
+    hostname: localhost
   client:
     service-url:
       defaultZone: http://localhost:8761/eureka
     register-with-eureka: true
     fetch-registry: true
+
+logging:
+  file:
+    name: logs/${spring.application.name}.log
