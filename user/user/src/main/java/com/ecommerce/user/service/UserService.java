@@ -19,7 +19,7 @@ import java.util.stream.Collectors;
 public class UserService {
 //    private List<User> userList=new ArrayList<>();
     private final UserRepository userRepository;
-
+    private final KeyCloakAdminService keyCloakAdminService;
 
 
     public List<UserResponse> fetchAllUsers()
@@ -43,6 +43,7 @@ public class UserService {
         response.setLastName(user.getLastName());
         response.setPhone(user.getPhone());
         response.setRole(user.getRole());
+        response.setKeycloakId(user.getKeyCloakId());
        if(user.getAddress()!=null)
        {
            AddressDTO addressDTO=new AddressDTO();
@@ -65,8 +66,12 @@ public class UserService {
 
     public void addUser(UserRequest userRequest)
     {
+        String token= keyCloakAdminService.getAdminAccessToken();
+        String keyCloakUserId=keyCloakAdminService.creaeUser(token,userRequest);
         User user=new User();
         updateUserFromRequest(user,userRequest);
+        user.setKeyCloakId(keyCloakUserId);
+        keyCloakAdminService.assignRealmRoleToUser(userRequest.getUsername(),"USER",keyCloakUserId);
         userRepository.save(user);
     }
 

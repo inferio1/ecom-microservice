@@ -6,6 +6,7 @@ import lombok.Data;
 
 @Data
 public class UserResponse {
+    private String keycloakId;
     public String id;
     private String firstName;
     private String lastName;

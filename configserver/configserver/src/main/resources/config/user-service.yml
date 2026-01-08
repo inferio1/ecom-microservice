@@ -37,3 +37,12 @@ eureka:
 logging:
   file:
     name: logs/${spring.application.name}.log
+
+keycloak:
+  admin:
+    username: user
+    password: user
+    server-url: http://localhost:8443
+    realm: ecom-app
+    client-id: admin-cli
+    client-uid: 3ad6013f-8970-435a-9d68-bdd462d632de
